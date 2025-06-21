@@ -40,7 +40,9 @@ export default function Home() {
     <div>
       {
         loading ? (
-          <p className="text-xl text-center font-medium text-blue-600">Loading products...</p>
+          <div className="flex justify-center items-center min-h-[91vh]">
+            <p className="text-xl text-center font-medium text-blue-600">Loading products...</p>
+          </div>
         ) : (
           products.length > 0 ? (
             <div className="grid mb-8 xs:grid cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 
