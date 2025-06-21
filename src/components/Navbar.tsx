@@ -1,4 +1,3 @@
-// components/Navbar.tsx
 import Link from "next/link";
 
 
@@ -20,7 +19,7 @@ export default function Navbar() {
           <Link href="/signup" className="text-sm font-bold text-blue-600 bg-gray-200 p-4 rounded-xl hover:bg-gray-400">
             Signup
           </Link>
-          
+
         </div>
       </div>
     </nav>
