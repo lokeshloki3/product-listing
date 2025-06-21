@@ -1,4 +1,3 @@
-// models/User.ts
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
@@ -13,6 +12,21 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    cart: [
+      {
+        productId: {
+          type: Number,
+          required: true,
+        },
+        title: String,
+        price: Number,
+        thumbnail: String,
+        quantity: {
+          type: Number,
+          default: 1,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );
