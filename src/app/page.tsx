@@ -41,7 +41,7 @@ export default function Home() {
       {
         loading ? (
           <div className="flex justify-center items-center min-h-[91vh]">
-            <p className="text-xl text-center font-medium text-blue-600">Loading products...</p>
+            <p className="text-xl text-center font-medium">Loading products...</p>
           </div>
         ) : (
           products.length > 0 ? (
@@ -54,8 +54,8 @@ export default function Home() {
               }
             </div>
           ) : (
-            <div className="flex justify-center items-center">
-              <p>No Data Found</p>
+            <div className="flex justify-center items-center min-h-[91vh]">
+              <p className="text-xl text-center font-medium">No Product Found</p>
             </div>
           )
         )

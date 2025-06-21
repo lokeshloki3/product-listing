@@ -1,6 +1,7 @@
 'use client';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface SignupFormData {
     email: string,
@@ -54,13 +55,14 @@ export default function SignupPage() {
             router.push('/login');
         } catch (error) {
             setError('An error occurred. Please try again.');
+            console.log(error);
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="bg-gray-100 flex items-center justify-center h-full  min-h-[91vh]">
+        <div className="bg-gray-100 flex items-center justify-center h-full min-h-[91vh]">
             <div className="w-full max-w-md px-8 py-10 bg-white rounded-xl shadow-lg">
                 <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Create an Account</h1>
 
@@ -101,9 +103,7 @@ export default function SignupPage() {
                             value={formData.password}
                             onChange={handleChange}
                         />
-                        {/* <p className="mt-1 text-xs text-gray-500">
-              Must be at least 8 characters
-            </p> */}
+
                     </div>
 
                     <div>
@@ -134,9 +134,9 @@ export default function SignupPage() {
 
                 <p className="mt-8 text-center text-sm text-gray-600">
                     Already have an account?{' '}
-                    <a href="/login" className="font-medium text-blue-600 hover:text-blue-500">
+                    <Link href="/login" className="font-medium text-blue-600 hover:text-blue-500">
                         Sign in
-                    </a>
+                    </Link>
                 </p>
             </div>
         </div>
