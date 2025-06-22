@@ -1,4 +1,3 @@
-// app/api/auth/login/route.ts
 import User from "@/models/User";
 import bcrypt from "bcryptjs";
 import { signToken } from "@/lib/auth";

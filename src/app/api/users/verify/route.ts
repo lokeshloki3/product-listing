@@ -1,20 +1,24 @@
-import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
-import { verifyToken } from '@/lib/auth';
+import { verifyToken } from "@/lib/auth";
+import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 
 export async function GET() {
   const cookieStore = await cookies();
-  const token = cookieStore.get('token')?.value;
+  const token = cookieStore.get("token")?.value;
 
   if (!token) {
-    return NextResponse.json({ isAuthenticated: false }, { status: 200 });
+    return NextResponse.json({ user: null });
   }
 
-  const user = verifyToken(token);
-
-  if (!user) {
-    return NextResponse.json({ isAuthenticated: false }, { status: 401 });
+  const decoded = verifyToken(token);
+  if (!decoded) {
+    return NextResponse.json({ user: null });
   }
 
-  return NextResponse.json({ isAuthenticated: true, user });
+  return NextResponse.json({
+    user: {
+      email: decoded.email,
+      userId: decoded.userId,
+    },
+  });
 }

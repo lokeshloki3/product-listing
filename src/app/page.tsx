@@ -45,7 +45,7 @@ export default function Home() {
           </div>
         ) : (
           products.length > 0 ? (
-            <div className="grid mb-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-6xl p-2 mx-auto gap-6 min-h-[80vh]">
+            <div className="grid mb-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-6xl p-2 mx-auto gap-2 min-h-[80vh]">
               {
                 products.map((product) => (
                   <Card key={product.id} product={product} />
