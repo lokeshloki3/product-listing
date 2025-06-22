@@ -1,4 +1,8 @@
+'use client';
+
+import { addToCart } from "@/store/slices/cartSlice";
 import Image from "next/image";
+import { useDispatch } from "react-redux";
 
 type Product = {
     id: number;
@@ -12,6 +16,8 @@ type CardProps = {
 };
 
 export default function Card({ product }: CardProps) {
+    // const dispatch = useDispatch();
+
     return (
         <div className="flex flex-col items-center justify-between 
             hover:scale-110 transition duration-300 ease-in gap-3 p-4 mt-10 ml-5 rounded-xl outline border shadow-lg">
@@ -20,8 +26,8 @@ export default function Card({ product }: CardProps) {
             </div>
 
             <div className="h-[180px]">
-                <Image 
-                src={product.thumbnail}
+                <Image
+                    src={product.thumbnail}
                     alt={product.title}
                     width={300}
                     height={300}
@@ -33,6 +39,14 @@ export default function Card({ product }: CardProps) {
                     <p className="text-green-600 font-semibold">Rs {product.price}</p>
                 </div>
             </div>
+            {/* <button
+                onClick={() =>
+                    dispatch(addToCart({ productId: product.id }))
+                }
+                className="bg-green-600 text-white px-4 py-2 rounded"
+            >
+                Add to Cart
+            </button> */}
         </div>
     );
 }

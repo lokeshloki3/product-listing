@@ -3,6 +3,8 @@
 import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { setAuthenticated } from '@/store/slices/authSlice';
+import { useDispatch } from 'react-redux';
 
 export default function LoginPage() {
   const [email, setEmail] = useState<string>('');
@@ -10,6 +12,7 @@ export default function LoginPage() {
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,6 +34,13 @@ export default function LoginPage() {
         setError(data.error || 'Invalid credentials');
         return;
       }
+
+      const verifyRes = await fetch('/api/users/verify', {
+        method: 'GET',
+        credentials: 'include',
+      });
+      const verifyData = await verifyRes.json();
+      dispatch(setAuthenticated(verifyData.isAuthenticated));
 
       router.push('/');
     } catch (error) {
