@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import { setUser } from '@/store/slices/authSlice';
 import type { AppDispatch } from '@/store';
+import { setCart } from '@/store/slices/cartSlice';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -43,7 +44,18 @@ export default function LoginPage() {
       const verifyData = await verifyRes.json();
       if (verifyData?.user) {
         dispatch(setUser(verifyData.user));
+
+        const cartRes = await fetch("/api/cart/get", {
+          method: "GET",
+          credentials: "include",
+        });
+
+        const cartData = await cartRes.json();
+        if (Array.isArray(cartData.cart)) {
+          dispatch(setCart(cartData.cart));
+        }
       }
+
 
       router.push('/');
     } catch (err) {
@@ -104,9 +116,8 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
-              loading ? 'opacity-70 cursor-not-allowed' : ''
-            }`}
+            className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${loading ? 'opacity-70 cursor-not-allowed' : ''
+              }`}
           >
             {loading ? 'Logging in...' : 'Log In'}
           </button>

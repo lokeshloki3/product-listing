@@ -1,46 +1,74 @@
 'use client';
 
-import { useSelector } from 'react-redux';
-import Link from 'next/link';
-import CartItem from '../components/CartIem';
+import { useSelector } from "react-redux";
+import Link from "next/link";
+import CartItem from "../components/CartIem";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function CartPage() {
   const cart = useSelector((state: any) => state.cart.items);
-  const totalAmount = cart.reduce((acc: number, item: any) => acc + item.price, 0);
+  const totalAmount = Math.round(cart.reduce((acc: number, item: any) => acc + item.price, 0));
 
   return (
-    <div className="p-6">
+    <div className="mt-10 px-4">
       {cart.length > 0 ? (
-        <div className="flex flex-col lg:flex-row gap-10">
-          <div className="flex flex-col gap-4">
-            {cart.map((item: any, index: number) => (
-              <CartItem key={item.id} item={item} itemIndex={index} />
-            ))}
+        <div className="grid md:grid-cols-[2fr_1fr] gap-8 max-w-6xl mx-auto">
+          {/* Cart Items */}
+          <div className="space-y-4">
+            <AnimatePresence>
+              {cart.map((item: any, index: number) => (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <CartItem item={item} itemIndex={index} />
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
 
-          <div className="flex flex-col justify-between w-[400px] p-8 border rounded shadow">
-            <div>
-              <h2 className="text-green-600 font-bold uppercase">Your Cart</h2>
-              <h3 className="text-2xl font-bold mb-4">Summary</h3>
-              <p>Total Items: {cart.length}</p>
-            </div>
-
-            <div className="mt-6">
-              <p className="font-medium">Total Amount:</p>
-              <p className="font-bold text-xl">Rs {totalAmount}</p>
-              <button className="w-full mt-4 bg-green-600 text-white py-3 rounded">
-                Checkout Now
-              </button>
-            </div>
-          </div>
+          {/* Summary */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="sticky top-24 self-start bg-gray-50 p-8 rounded shadow-sm h-fit"
+          >
+            <h2 className="text-green-600 font-bold uppercase mb-2">Your Cart</h2>
+            <h3 className="text-green-600 text-3xl font-bold mb-6">Summary</h3>
+            <p className="font-bold mb-2">Total Items: {cart.length}</p>
+            <p className="font-medium mb-1">Total Amount:</p>
+            <p className="font-bold text-lg mb-6">Rs {totalAmount}</p>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-green-600 text-white w-full uppercase py-3 px-4 rounded-lg text-sm font-semibold"
+            >
+              Checkout Now
+            </motion.button>
+          </motion.div>
         </div>
       ) : (
-        <div className="text-center py-20">
-          <h1 className="font-bold text-xl mb-4">Your Cart is Empty</h1>
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="flex flex-col justify-center items-center h-96"
+        >
+          <h1 className="font-bold text-xl mb-5">Cart Empty</h1>
           <Link href="/">
-            <button className="bg-green-600 text-white px-6 py-3 rounded">Shop Now</button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="text-white text-xs font-semibold bg-green-600 uppercase py-3 px-7 rounded-lg cursor-pointer"
+            >
+              Shop Now
+            </motion.button>
           </Link>
-        </div>
+        </motion.div>
       )}
     </div>
   );

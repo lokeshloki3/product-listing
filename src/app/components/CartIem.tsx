@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { removeFromCart } from "@/store/slices/cartSlice";
+import { motion } from "framer-motion";
 
 export default function CartItem({ item }: any) {
   const dispatch = useDispatch();
@@ -18,15 +19,26 @@ export default function CartItem({ item }: any) {
   };
 
   return (
-    <div className="flex items-center gap-4 p-4 border rounded shadow-sm">
-      <Image src={item.thumbnail} alt={item.title} width={80} height={80} />
-      <div>
+    <motion.div
+      layout
+      initial={{ opacity: 0, scale: 0.98 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.25 }}
+      className="grid grid-cols-[100px_1fr_auto] items-center gap-4 p-4 border rounded shadow-sm"
+    >
+      <Image src={item.thumbnail} alt={item.title} width={80} height={80} className="rounded" />
+      <div className="space-y-1">
         <p className="font-semibold">{item.title}</p>
         <p className="text-gray-600">Rs {item.price}</p>
-        <button onClick={handleRemove} className="text-red-500 text-sm mt-1 hover:underline">
-          Remove
-        </button>
       </div>
-    </div>
+      <motion.button
+        whileTap={{ scale: 0.95 }}
+        onClick={handleRemove}
+        className="text-red-500 border-2 border-gray-700 rounded-full font-semibold cursor-pointer text-[12px] p-1 px-3 hover:bg-gray-400"
+      >
+        Remove
+      </motion.button>
+    </motion.div>
   );
 }
