@@ -22,7 +22,7 @@ export default function CartPage() {
         <div className="grid md:grid-cols-[2fr_1fr] gap-8 max-w-6xl mx-auto">
           <div className="space-y-4">
             <AnimatePresence>
-              {cart.map((item: CartItem, index: number) => (
+              {cart.map((item: CartItem) => (
                 <motion.div
                   key={item.id}
                   initial={{ opacity: 0, x: -20 }}
