@@ -3,6 +3,13 @@ import connectToDatabase from "@/lib/mongodb";
 import { verifyToken } from "@/lib/auth";
 import User from "@/models/User";
 
+type CartItem = {
+  id: number;
+  title: string;
+  price: number;
+  thumbail?: string;
+};
+
 export async function POST(req: NextRequest) {
   await connectToDatabase();
 
@@ -19,7 +26,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: "User not found" }, { status: 404 });
   }
 
-  user.cart = user.cart.filter((item: any) => item.id !== productId);
+  user.cart = user.cart.filter((item: CartItem) => item.id !== productId);
   await user.save();
 
   return NextResponse.json({ success: true });

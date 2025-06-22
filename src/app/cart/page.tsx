@@ -5,18 +5,24 @@ import Link from "next/link";
 import CartItem from "../components/CartIem";
 import { motion, AnimatePresence } from "framer-motion";
 
+type CartItem = {
+  id: number;
+  title: string;
+  price: number;
+  thumbnail: string;
+};
+
 export default function CartPage() {
-  const cart = useSelector((state: any) => state.cart.items);
-  const totalAmount = Math.round(cart.reduce((acc: number, item: any) => acc + item.price, 0));
+  const cart = useSelector((state: { cart: { items: CartItem[] } }) => state.cart.items);
+  const totalAmount = Math.round(cart.reduce((acc, item) => acc + item.price, 0));
 
   return (
     <div className="mt-10 px-4">
       {cart.length > 0 ? (
         <div className="grid md:grid-cols-[2fr_1fr] gap-8 max-w-6xl mx-auto">
-          {/* Cart Items */}
           <div className="space-y-4">
             <AnimatePresence>
-              {cart.map((item: any, index: number) => (
+              {cart.map((item: CartItem, index: number) => (
                 <motion.div
                   key={item.id}
                   initial={{ opacity: 0, x: -20 }}
@@ -24,13 +30,12 @@ export default function CartPage() {
                   exit={{ opacity: 0, x: 20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <CartItem item={item} itemIndex={index} />
+                  <CartItem item={item} />
                 </motion.div>
               ))}
             </AnimatePresence>
           </div>
 
-          {/* Summary */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

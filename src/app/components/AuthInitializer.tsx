@@ -39,7 +39,7 @@ export default function AuthInitializer() {
           dispatch(setUser(null));
           dispatch(clearCart());
         }
-      } catch (err) {
+      } catch (err: unknown) {
         dispatch(setUser(null));
         dispatch(clearCart());
       } finally {
