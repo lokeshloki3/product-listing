@@ -64,7 +64,7 @@ export default function Navbar() {
                   </motion.span>
                 )}
               </Link>
-              <button onClick={handleLogout} className="text-sm font-bold text-red-600 bg-gray-200 p-4 rounded-xl hover:bg-gray-400">
+              <button onClick={handleLogout} className="text-sm font-bold text-red-600 bg-gray-200 p-4 rounded-xl hover:bg-gray-400 cursor-pointer">
                 Logout
               </button>
             </>
@@ -104,7 +104,7 @@ export default function Navbar() {
                   <Link href="/cart" onClick={() => setMenuOpen(false)} className="text-base font-bold text-white bg-green-600 px-4 py-2 rounded-xl hover:bg-green-700">
                     Cart ({cartItems?.length || 0})
                   </Link>
-                  <button onClick={handleLogout} className="text-base font-bold text-red-600 bg-gray-200 px-4 py-2 rounded-xl hover:bg-gray-400">
+                  <button onClick={handleLogout} className="text-base font-bold text-red-600 bg-gray-200 px-4 py-2 rounded-xl hover:bg-gray-400 cursor-pointer">
                     Logout
                   </button>
                 </>

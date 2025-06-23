@@ -50,7 +50,7 @@ export default function CartPage() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-green-600 text-white w-full uppercase py-3 px-4 rounded-lg text-sm font-semibold"
+              className="bg-green-600 text-white w-full uppercase py-3 px-4 rounded-lg text-sm font-semibold cursor-pointer"
             >
               Checkout Now
             </motion.button>
